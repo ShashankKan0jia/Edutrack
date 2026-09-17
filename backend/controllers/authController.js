@@ -155,6 +155,27 @@ exports.getStudentsByClassAndSchool = async (req, res) => {
 exports.markStudentAttendanceBulk = async (req, res) => {
   try {
     const { students, school, className } = req.body;
+
+    if (!school || !className || !Array.isArray(students) || students.length === 0) {
+      return res.status(400).json({
+        message: "school, className and a non-empty students array are required",
+      });
+    }
+
+    const invalidStudent = students.find(
+      (s) =>
+        !s ||
+        !s.studentId ||
+        !s.name ||
+        !["Present", "Absent"].includes(s.status),
+    );
+
+    if (invalidStudent) {
+      return res.status(400).json({
+        message: "Each student must include studentId, name and a valid status",
+      });
+    }
+
     const today = new Date().toISOString().split("T")[0];
 
     // 🔒 CLASS LEVEL LOCK CHECK
