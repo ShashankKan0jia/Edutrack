@@ -103,6 +103,12 @@ exports.markTeacherAttendance = async (req, res) => {
   try {
     const { teacherId, name, school, class: teacherClass } = req.body;
 
+    if (!teacherId || !name || !school || !teacherClass) {
+      return res.status(400).json({
+        message: "teacherId, name, school and class are required",
+      });
+    }
+
     const today = new Date().toISOString().split("T")[0];
 
     const exists = await Attendance.findOne({
