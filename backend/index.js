@@ -11,7 +11,7 @@ const app = express();
 
 // VERY IMPORTANT
 app.use(cors());
-app.use(express.json()); // <-- this allows JSON body
+app.use(express.json({ limit: "1mb" })); // Limit JSON payload size
 
 app.use("/api", authRoutes);
 
