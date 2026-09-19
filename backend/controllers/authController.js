@@ -33,7 +33,8 @@ exports.login = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -64,7 +65,8 @@ exports.addTeacher = async (req, res) => {
       teacher,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Add teacher error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -94,7 +96,8 @@ exports.addStudent = async (req, res) => {
       student,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Add student error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -133,7 +136,8 @@ exports.markTeacherAttendance = async (req, res) => {
 
     res.status(201).json({ message: "Attendance marked", record });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Mark teacher attendance error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -153,7 +157,8 @@ exports.getStudentsByClassAndSchool = async (req, res) => {
 
     res.json(students);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Get students error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -214,6 +219,7 @@ exports.markStudentAttendanceBulk = async (req, res) => {
       count: records.length,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Bulk student attendance error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
