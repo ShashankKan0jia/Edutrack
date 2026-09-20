@@ -20,4 +20,13 @@ const attendanceSchema = new mongoose.Schema({
   },
 });
 
+// Prevent duplicate teacher attendance records for the same day.
+attendanceSchema.index(
+  { userType: 1, userId: 1, date: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { userType: "teacher" },
+  },
+);
+
 module.exports = mongoose.model("Attendance", attendanceSchema);
