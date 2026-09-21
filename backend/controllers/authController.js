@@ -104,12 +104,18 @@ exports.addStudent = async (req, res) => {
 // ================= MARK TEACHER ATTENDANCE =================
 exports.markTeacherAttendance = async (req, res) => {
   try {
-    const { teacherId, name, school, class: teacherClass } = req.body;
+    const { teacherId } = req.body;
 
-    if (!teacherId || !name || !school || !teacherClass) {
+    if (!teacherId) {
       return res.status(400).json({
-        message: "teacherId, name, school and class are required",
+        message: "teacherId is required",
       });
+    }
+
+    const teacher = await Teacher.findOne({ teacherId });
+
+    if (!teacher) {
+      return res.status(404).json({ message: "Teacher not found" });
     }
 
     const today = new Date().toISOString().split("T")[0];
@@ -127,9 +133,9 @@ exports.markTeacherAttendance = async (req, res) => {
     const record = await Attendance.create({
       userType: "teacher",
       userId: teacherId,
-      name,
-      school,
-      class: teacherClass,
+      name: teacher.name,
+      school: teacher.school,
+      class: teacher.class,
       date: today,
       status: "Present",
     });
