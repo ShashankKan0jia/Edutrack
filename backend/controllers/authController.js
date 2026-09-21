@@ -62,7 +62,12 @@ exports.addTeacher = async (req, res) => {
 
     res.status(201).json({
       message: "Teacher added",
-      teacher,
+      teacher: {
+        teacherId: teacher.teacherId,
+        name: teacher.name,
+        school: teacher.school,
+        class: teacher.class,
+      },
     });
   } catch (error) {
     console.error("Add teacher error:", error);
