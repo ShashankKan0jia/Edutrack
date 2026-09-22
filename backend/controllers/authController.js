@@ -5,7 +5,8 @@ const Teacher = require("../models/Teacher");
 // ================= LOGIN =================
 exports.login = async (req, res) => {
   try {
-    const { teacherId, password } = req.body;
+    const teacherId = req.body.teacherId?.trim();
+    const { password } = req.body;
 
     if (!teacherId || !password) {
       return res
@@ -109,7 +110,7 @@ exports.addStudent = async (req, res) => {
 // ================= MARK TEACHER ATTENDANCE =================
 exports.markTeacherAttendance = async (req, res) => {
   try {
-    const { teacherId } = req.body;
+    const teacherId = req.body.teacherId?.trim();
 
     if (!teacherId) {
       return res.status(400).json({
