@@ -42,7 +42,11 @@ exports.login = async (req, res) => {
 // ================= ADD TEACHER =================
 exports.addTeacher = async (req, res) => {
   try {
-    const { teacherId, name, password, school, class: teacherClass } = req.body;
+    const teacherId = req.body.teacherId?.trim();
+    const name = req.body.name?.trim();
+    const password = req.body.password;
+    const school = req.body.school?.trim();
+    const teacherClass = req.body.class?.trim();
 
     if (!teacherId || !name || !password || !school || !teacherClass) {
       return res.status(400).json({ message: "All fields required" });
