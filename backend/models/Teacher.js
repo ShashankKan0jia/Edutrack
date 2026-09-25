@@ -5,10 +5,12 @@ const teacherSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    trim: true,
   },
   name: {
     type: String,
     required: true,
+    trim: true,
   },
   password: {
     type: String,
@@ -17,10 +19,12 @@ const teacherSchema = new mongoose.Schema({
   school: {
     type: String,
     required: true,
+    trim: true,
   },
   class: {
     type: String,
     required: true, // class teacher of which class
+    trim: true,
   },
 });
 
