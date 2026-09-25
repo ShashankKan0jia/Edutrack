@@ -83,7 +83,10 @@ exports.addTeacher = async (req, res) => {
 // ================= ADD STUDENT =================
 exports.addStudent = async (req, res) => {
   try {
-    const { studentId, name, class: studentClass, school } = req.body;
+    const studentId = req.body.studentId?.trim();
+    const name = req.body.name?.trim();
+    const studentClass = req.body.class?.trim();
+    const school = req.body.school?.trim();
 
     if (!studentId || !name || !studentClass || !school) {
       return res.status(400).json({ message: "All fields required" });
