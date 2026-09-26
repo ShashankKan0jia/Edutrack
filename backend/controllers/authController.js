@@ -211,6 +211,7 @@ exports.markStudentAttendanceBulk = async (req, res) => {
     // 🔒 CLASS LEVEL LOCK CHECK
     const alreadySubmitted = await Attendance.findOne({
       userType: "student",
+      school,
       class: className,
       date: today,
     });
