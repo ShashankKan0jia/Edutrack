@@ -196,8 +196,10 @@ exports.markStudentAttendanceBulk = async (req, res) => {
     const invalidStudent = students.find(
       (s) =>
         !s ||
-        !s.studentId ||
-        !s.name ||
+        typeof s.studentId !== "string" ||
+        typeof s.name !== "string" ||
+        !s.studentId.trim() ||
+        !s.name.trim() ||
         !["Present", "Absent"].includes(s.status),
     );
 
@@ -225,8 +227,8 @@ exports.markStudentAttendanceBulk = async (req, res) => {
 
     const records = students.map((s) => ({
       userType: "student",
-      userId: s.studentId,
-      name: s.name,
+      userId: s.studentId.trim(),
+      name: s.name.trim(),
       school,
       class: className,
       date: today,
