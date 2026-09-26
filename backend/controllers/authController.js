@@ -163,7 +163,8 @@ exports.markTeacherAttendance = async (req, res) => {
 // ================= GET STUDENTS OF CLASS =================
 exports.getStudentsByClassAndSchool = async (req, res) => {
   try {
-    const { className, school } = req.query;
+    const className = req.query.className?.trim();
+    const school = req.query.school?.trim();
 
     if (!className || !school) {
       return res.status(400).json({ message: "className and school required" });
