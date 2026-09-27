@@ -185,7 +185,9 @@ exports.getStudentsByClassAndSchool = async (req, res) => {
 // ================= BULK STUDENT ATTENDANCE =================
 exports.markStudentAttendanceBulk = async (req, res) => {
   try {
-    const { students, school, className } = req.body;
+    const school = req.body.school?.trim();
+    const className = req.body.className?.trim();
+    const { students } = req.body;
 
     if (!school || !className || !Array.isArray(students) || students.length === 0) {
       return res.status(400).json({
