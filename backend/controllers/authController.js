@@ -211,6 +211,13 @@ exports.markStudentAttendanceBulk = async (req, res) => {
       });
     }
 
+    const studentIds = students.map((student) => student.studentId.trim());
+    if (new Set(studentIds).size !== studentIds.length) {
+      return res.status(400).json({
+        message: "Each student can appear only once in an attendance submission",
+      });
+    }
+
     const today = new Date().toISOString().split("T")[0];
 
     // 🔒 CLASS LEVEL LOCK CHECK
