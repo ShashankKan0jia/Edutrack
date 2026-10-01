@@ -29,8 +29,6 @@ attendanceSchema.index(
   },
 );
 
-module.exports = mongoose.model("Attendance", attendanceSchema);
-
 // Prevent duplicate student attendance records for the same day.
 attendanceSchema.index(
   { userType: 1, userId: 1, date: 1 },
@@ -39,3 +37,5 @@ attendanceSchema.index(
     partialFilterExpression: { userType: "student" },
   },
 );
+
+module.exports = mongoose.model("Attendance", attendanceSchema);
