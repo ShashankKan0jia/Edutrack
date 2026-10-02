@@ -2,17 +2,36 @@ const mongoose = require("mongoose");
 
 const attendanceSchema = new mongoose.Schema({
   userType: {
-    type: String, // "teacher" or "student"
+    type: String,
+    enum: ["teacher", "student"],
     required: true,
   },
   userId: {
     type: String,
     required: true,
+    trim: true,
+    maxlength: 100,
   },
-  name: String,
-  school: String,
-  class: String,
-  date: String,
+  name: {
+    type: String,
+    trim: true,
+    maxlength: 100,
+  },
+  school: {
+    type: String,
+    trim: true,
+    maxlength: 200,
+  },
+  class: {
+    type: String,
+    trim: true,
+    maxlength: 100,
+  },
+  date: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   status: {
     type: String,
     enum: ["Present", "Absent"],
