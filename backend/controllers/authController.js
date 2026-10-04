@@ -52,6 +52,16 @@ exports.addTeacher = async (req, res) => {
       return res.status(400).json({ message: "All fields required" });
     }
 
+    if (
+      teacherId.length > 100 ||
+      name.length > 100 ||
+      password.length > 200 ||
+      school.length > 100 ||
+      teacherClass.length > 100
+    ) {
+      return res.status(400).json({ message: "One or more fields are too long" });
+    }
+
     const exists = await Teacher.findOne({ teacherId });
     if (exists) {
       return res.status(400).json({ message: "Teacher already exists" });
@@ -90,6 +100,15 @@ exports.addStudent = async (req, res) => {
 
     if (!studentId || !name || !studentClass || !school) {
       return res.status(400).json({ message: "All fields required" });
+    }
+
+    if (
+      studentId.length > 100 ||
+      name.length > 100 ||
+      studentClass.length > 100 ||
+      school.length > 200
+    ) {
+      return res.status(400).json({ message: "One or more fields are too long" });
     }
 
     const exists = await Student.findOne({ studentId });
