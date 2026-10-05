@@ -32,6 +32,19 @@ const attendanceSchema = new mongoose.Schema({
     required: true,
     trim: true,
     match: /^\d{4}-\d{2}-\d{2}$/,
+    validate: {
+      validator: (value) => {
+        const [year, month, day] = value.split("-").map(Number);
+        const parsedDate = new Date(Date.UTC(year, month - 1, day));
+
+        return (
+          parsedDate.getUTCFullYear() === year &&
+          parsedDate.getUTCMonth() === month - 1 &&
+          parsedDate.getUTCDate() === day
+        );
+      },
+      message: "date must be a valid calendar date",
+    },
   },
   status: {
     type: String,
