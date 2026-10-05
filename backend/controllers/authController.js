@@ -214,6 +214,12 @@ exports.markStudentAttendanceBulk = async (req, res) => {
       });
     }
 
+    if (school.length > 200 || className.length > 100 || students.length > 200) {
+      return res.status(400).json({
+        message: "School, class, or student list exceeds the allowed limit",
+      });
+    }
+
     const invalidStudent = students.find(
       (s) =>
         !s ||
@@ -221,12 +227,14 @@ exports.markStudentAttendanceBulk = async (req, res) => {
         typeof s.name !== "string" ||
         !s.studentId.trim() ||
         !s.name.trim() ||
+        s.studentId.trim().length > 100 ||
+        s.name.trim().length > 100 ||
         !["Present", "Absent"].includes(s.status),
     );
 
     if (invalidStudent) {
       return res.status(400).json({
-        message: "Each student must include studentId, name and a valid status",
+        message: "Each student must include valid studentId, name and status",
       });
     }
 
