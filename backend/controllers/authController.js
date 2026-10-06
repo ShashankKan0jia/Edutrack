@@ -5,8 +5,10 @@ const Teacher = require("../models/Teacher");
 // ================= LOGIN =================
 exports.login = async (req, res) => {
   try {
-    const teacherId = req.body.teacherId?.trim();
-    const { password } = req.body;
+    const teacherId =
+      typeof req.body.teacherId === "string" ? req.body.teacherId.trim() : "";
+    const password =
+      typeof req.body.password === "string" ? req.body.password : "";
 
     if (!teacherId || !password) {
       return res
@@ -182,11 +184,19 @@ exports.markTeacherAttendance = async (req, res) => {
 // ================= GET STUDENTS OF CLASS =================
 exports.getStudentsByClassAndSchool = async (req, res) => {
   try {
-    const className = req.query.className?.trim();
-    const school = req.query.school?.trim();
+    const className =
+      typeof req.query.className === "string" ? req.query.className.trim() : "";
+    const school =
+      typeof req.query.school === "string" ? req.query.school.trim() : "";
 
     if (!className || !school) {
       return res.status(400).json({ message: "className and school required" });
+    }
+
+    if (className.length > 100 || school.length > 200) {
+      return res.status(400).json({
+        message: "Class or school exceeds the allowed length",
+      });
     }
 
     const students = await Student.find({
