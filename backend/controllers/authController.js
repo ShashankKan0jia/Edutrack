@@ -46,7 +46,8 @@ exports.addTeacher = async (req, res) => {
   try {
     const teacherId = req.body.teacherId?.trim();
     const name = req.body.name?.trim();
-    const password = req.body.password;
+    const password =
+      typeof req.body.password === "string" ? req.body.password : "";
     const school = req.body.school?.trim();
     const teacherClass = req.body.class?.trim();
 
