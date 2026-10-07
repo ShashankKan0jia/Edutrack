@@ -59,7 +59,7 @@ exports.addTeacher = async (req, res) => {
       teacherId.length > 100 ||
       name.length > 100 ||
       password.length > 200 ||
-      school.length > 100 ||
+      school.length > 200 ||
       teacherClass.length > 100
     ) {
       return res.status(400).json({ message: "One or more fields are too long" });
@@ -96,10 +96,14 @@ exports.addTeacher = async (req, res) => {
 // ================= ADD STUDENT =================
 exports.addStudent = async (req, res) => {
   try {
-    const studentId = req.body.studentId?.trim();
-    const name = req.body.name?.trim();
-    const studentClass = req.body.class?.trim();
-    const school = req.body.school?.trim();
+    const studentId =
+      typeof req.body.studentId === "string" ? req.body.studentId.trim() : "";
+    const name =
+      typeof req.body.name === "string" ? req.body.name.trim() : "";
+    const studentClass =
+      typeof req.body.class === "string" ? req.body.class.trim() : "";
+    const school =
+      typeof req.body.school === "string" ? req.body.school.trim() : "";
 
     if (!studentId || !name || !studentClass || !school) {
       return res.status(400).json({ message: "All fields required" });
