@@ -44,8 +44,10 @@ exports.login = async (req, res) => {
 // ================= ADD TEACHER =================
 exports.addTeacher = async (req, res) => {
   try {
-    const teacherId = req.body.teacherId?.trim();
-    const name = req.body.name?.trim();
+    const teacherId =
+      typeof req.body.teacherId === "string" ? req.body.teacherId.trim() : "";
+    const name =
+      typeof req.body.name === "string" ? req.body.name.trim() : "";
     const password =
       typeof req.body.password === "string" ? req.body.password : "";
     const school = req.body.school?.trim();
