@@ -90,6 +90,9 @@ exports.addTeacher = async (req, res) => {
       },
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({ message: "Teacher already exists" });
+    }
     console.error("Add teacher error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
@@ -137,6 +140,9 @@ exports.addStudent = async (req, res) => {
       student,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({ message: "Student already exists" });
+    }
     console.error("Add student error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
