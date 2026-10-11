@@ -227,7 +227,7 @@ exports.getStudentsByClassAndSchool = async (req, res) => {
     const students = await Student.find({
       class: className,
       school,
-    });
+    }).sort({ name: 1, studentId: 1 });
 
     res.json(students);
   } catch (error) {
