@@ -309,6 +309,9 @@ exports.markStudentAttendanceBulk = async (req, res) => {
       count: records.length,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({ message: "Attendance already exists for one or more students" });
+    }
     console.error("Bulk student attendance error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
