@@ -162,6 +162,12 @@ exports.markTeacherAttendance = async (req, res) => {
       });
     }
 
+    if (teacherId.length > 100) {
+      return res.status(400).json({
+        message: "teacherId exceeds the allowed length",
+      });
+    }
+
     const teacher = await Teacher.findOne({ teacherId });
 
     if (!teacher) {
