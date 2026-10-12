@@ -24,7 +24,7 @@ const teacherSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    maxlength: 100,
+    maxlength: 200,
   },
   class: {
     type: String,
