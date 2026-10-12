@@ -16,6 +16,10 @@ exports.login = async (req, res) => {
         .json({ message: "Teacher ID and Password required" });
     }
 
+    if (teacherId.length > 100 || password.length > 200) {
+      return res.status(400).json({ message: "Teacher ID or password is too long" });
+    }
+
     const teacher = await Teacher.findOne({ teacherId });
 
     if (!teacher) {
