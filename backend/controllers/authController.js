@@ -2,6 +2,15 @@ const Student = require("../models/Student");
 const Attendance = require("../models/Attendance");
 const Teacher = require("../models/Teacher");
 
+function getIndiaLocalDate() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+}
+
 // ================= LOGIN =================
 exports.login = async (req, res) => {
   try {
@@ -178,12 +187,7 @@ exports.markTeacherAttendance = async (req, res) => {
       return res.status(404).json({ message: "Teacher not found" });
     }
 
-    const today = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Asia/Kolkata",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(new Date());
+    const today = getIndiaLocalDate();
 
     const exists = await Attendance.findOne({
       userType: "teacher",
@@ -291,12 +295,7 @@ exports.markStudentAttendanceBulk = async (req, res) => {
       });
     }
 
-    const today = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Asia/Kolkata",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(new Date());
+    const today = getIndiaLocalDate();
 
     // 🔒 CLASS LEVEL LOCK CHECK
     const alreadySubmitted = await Attendance.findOne({
