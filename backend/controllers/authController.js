@@ -147,7 +147,7 @@ exports.addStudent = async (req, res) => {
 
     const exists = await Student.findOne({ studentId });
     if (exists) {
-      return res.status(400).json({ message: "Student already exists" });
+      return res.status(409).json({ message: "Student already exists" });
     }
 
     const student = await Student.create({
