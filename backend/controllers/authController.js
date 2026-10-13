@@ -91,7 +91,7 @@ exports.addTeacher = async (req, res) => {
 
     const exists = await Teacher.findOne({ teacherId });
     if (exists) {
-      return res.status(400).json({ message: "Teacher already exists" });
+      return res.status(409).json({ message: "Teacher already exists" });
     }
 
     const teacher = await Teacher.create({
