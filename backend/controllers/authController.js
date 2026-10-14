@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
     const teacherId =
       typeof req.body.teacherId === "string" ? req.body.teacherId.trim() : "";
     const password =
-      typeof req.body.password === "string" ? req.body.password : "";
+      typeof req.body.password === "string" ? req.body.password.trim() : "";
 
     if (!teacherId || !password) {
       return res
