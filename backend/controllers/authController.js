@@ -203,7 +203,7 @@ exports.markTeacherAttendance = async (req, res) => {
     });
 
     if (exists) {
-      return res.status(400).json({ message: "Attendance already marked" });
+      return res.status(409).json({ message: "Attendance already marked" });
     }
 
     const record = await Attendance.create({
@@ -313,7 +313,7 @@ exports.markStudentAttendanceBulk = async (req, res) => {
     });
 
     if (alreadySubmitted) {
-      return res.status(400).json({
+      return res.status(409).json({
         message: "Attendance already submitted for today. Editing not allowed.",
       });
     }
