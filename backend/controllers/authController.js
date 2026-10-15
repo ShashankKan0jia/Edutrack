@@ -69,7 +69,7 @@ exports.addTeacher = async (req, res) => {
     const name =
       typeof req.body.name === "string" ? req.body.name.trim() : "";
     const password =
-      typeof req.body.password === "string" ? req.body.password : "";
+      typeof req.body.password === "string" ? req.body.password.trim() : "";
     const school =
       typeof req.body.school === "string" ? req.body.school.trim() : "";
     const teacherClass =
