@@ -125,14 +125,15 @@ exports.addTeacher = async (req, res) => {
 // ================= ADD STUDENT =================
 exports.addStudent = async (req, res) => {
   try {
+    const body = req.body && typeof req.body === "object" ? req.body : {};
     const studentId =
-      typeof req.body.studentId === "string" ? req.body.studentId.trim() : "";
+      typeof body.studentId === "string" ? body.studentId.trim() : "";
     const name =
-      typeof req.body.name === "string" ? req.body.name.trim() : "";
+      typeof body.name === "string" ? body.name.trim() : "";
     const studentClass =
-      typeof req.body.class === "string" ? req.body.class.trim() : "";
+      typeof body.class === "string" ? body.class.trim() : "";
     const school =
-      typeof req.body.school === "string" ? req.body.school.trim() : "";
+      typeof body.school === "string" ? body.school.trim() : "";
 
     if (!studentId || !name || !studentClass || !school) {
       return res.status(400).json({ message: "All fields required" });
