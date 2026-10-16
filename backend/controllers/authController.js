@@ -65,16 +65,17 @@ exports.login = async (req, res) => {
 // ================= ADD TEACHER =================
 exports.addTeacher = async (req, res) => {
   try {
+    const body = req.body && typeof req.body === "object" ? req.body : {};
     const teacherId =
-      typeof req.body.teacherId === "string" ? req.body.teacherId.trim() : "";
+      typeof body.teacherId === "string" ? body.teacherId.trim() : "";
     const name =
-      typeof req.body.name === "string" ? req.body.name.trim() : "";
+      typeof body.name === "string" ? body.name.trim() : "";
     const password =
-      typeof req.body.password === "string" ? req.body.password.trim() : "";
+      typeof body.password === "string" ? body.password.trim() : "";
     const school =
-      typeof req.body.school === "string" ? req.body.school.trim() : "";
+      typeof body.school === "string" ? body.school.trim() : "";
     const teacherClass =
-      typeof req.body.class === "string" ? req.body.class.trim() : "";
+      typeof body.class === "string" ? body.class.trim() : "";
 
     if (!teacherId || !name || !password || !school || !teacherClass) {
       return res.status(400).json({ message: "All fields required" });
