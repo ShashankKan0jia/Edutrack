@@ -176,8 +176,9 @@ exports.addStudent = async (req, res) => {
 // ================= MARK TEACHER ATTENDANCE =================
 exports.markTeacherAttendance = async (req, res) => {
   try {
+    const body = req.body && typeof req.body === "object" ? req.body : {};
     const teacherId =
-      typeof req.body.teacherId === "string" ? req.body.teacherId.trim() : "";
+      typeof body.teacherId === "string" ? body.teacherId.trim() : "";
 
     if (!teacherId) {
       return res.status(400).json({
