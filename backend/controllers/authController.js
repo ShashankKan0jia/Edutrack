@@ -21,10 +21,11 @@ function getIndiaLocalDate() {
 // ================= LOGIN =================
 exports.login = async (req, res) => {
   try {
+    const body = req.body && typeof req.body === "object" ? req.body : {};
     const teacherId =
-      typeof req.body.teacherId === "string" ? req.body.teacherId.trim() : "";
+      typeof body.teacherId === "string" ? body.teacherId.trim() : "";
     const password =
-      typeof req.body.password === "string" ? req.body.password.trim() : "";
+      typeof body.password === "string" ? body.password.trim() : "";
 
     if (!teacherId || !password) {
       return res
