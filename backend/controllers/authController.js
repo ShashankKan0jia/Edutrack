@@ -263,11 +263,12 @@ exports.getStudentsByClassAndSchool = async (req, res) => {
 // ================= BULK STUDENT ATTENDANCE =================
 exports.markStudentAttendanceBulk = async (req, res) => {
   try {
+    const body = req.body && typeof req.body === "object" ? req.body : {};
     const school =
-      typeof req.body.school === "string" ? req.body.school.trim() : "";
+      typeof body.school === "string" ? body.school.trim() : "";
     const className =
-      typeof req.body.className === "string" ? req.body.className.trim() : "";
-    const { students } = req.body;
+      typeof body.className === "string" ? body.className.trim() : "";
+    const { students } = body;
 
     if (!school || !className || !Array.isArray(students) || students.length === 0) {
       return res.status(400).json({
