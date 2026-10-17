@@ -14,16 +14,19 @@ const attendanceSchema = new mongoose.Schema({
   },
   name: {
     type: String,
+    required: true,
     trim: true,
     maxlength: 100,
   },
   school: {
     type: String,
+    required: true,
     trim: true,
     maxlength: 200,
   },
   class: {
     type: String,
+    required: true,
     trim: true,
     maxlength: 100,
   },
@@ -31,7 +34,7 @@ const attendanceSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    match: /^\d{4}-\d{2}-\d{2}$/,
+    match: /^\\d{4}-\\d{2}-\\d{2}$/,
     validate: {
       validator: (value) => {
         const [year, month, day] = value.split("-").map(Number);
@@ -49,6 +52,7 @@ const attendanceSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["Present", "Absent"],
+    required: true,
     default: "Present",
   },
 });
