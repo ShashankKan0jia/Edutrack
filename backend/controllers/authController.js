@@ -319,6 +319,17 @@ exports.markStudentAttendanceBulk = async (req, res) => {
       registeredStudents.map((student) => [student.studentId, student]),
     );
     const today = getIndiaLocalDate();
+    const existingStudentAttendance = await Attendance.find({
+      userType: "student",
+      userId: { $in: studentIds },
+      date: today,
+    }).select("_id").lean();
+
+    if (existingStudentAttendance.length > 0) {
+      return res.status(409).json({
+        message: "Attendance already exists for one or more students",
+      });
+    }
 
     // 🔒 CLASS LEVEL LOCK CHECK
     const alreadySubmitted = await Attendance.findOne({
