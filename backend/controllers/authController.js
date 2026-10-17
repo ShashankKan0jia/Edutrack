@@ -303,6 +303,21 @@ exports.markStudentAttendanceBulk = async (req, res) => {
       });
     }
 
+    const registeredStudents = await Student.find({
+      studentId: { $in: studentIds },
+      school,
+      class: className,
+    }).select("studentId name").lean();
+
+    if (registeredStudents.length !== studentIds.length) {
+      return res.status(400).json({
+        message: "All students must belong to the selected class and school",
+      });
+    }
+
+    const registeredById = new Map(
+      registeredStudents.map((student) => [student.studentId, student]),
+    );
     const today = getIndiaLocalDate();
 
     // 🔒 CLASS LEVEL LOCK CHECK
@@ -319,15 +334,18 @@ exports.markStudentAttendanceBulk = async (req, res) => {
       });
     }
 
-    const records = students.map((s) => ({
-      userType: "student",
-      userId: s.studentId.trim(),
-      name: s.name.trim(),
-      school,
-      class: className,
-      date: today,
-      status: s.status,
-    }));
+    const records = students.map((s) => {
+      const registeredStudent = registeredById.get(s.studentId.trim());
+      return {
+        userType: "student",
+        userId: registeredStudent.studentId,
+        name: registeredStudent.name,
+        school,
+        class: className,
+        date: today,
+        status: s.status,
+      };
+    });
 
     await Attendance.insertMany(records);
 
