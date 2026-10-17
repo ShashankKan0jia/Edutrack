@@ -75,4 +75,7 @@ attendanceSchema.index(
   },
 );
 
+// Speed up the once-per-class daily attendance lock check.
+attendanceSchema.index({ userType: 1, school: 1, class: 1, date: 1 });
+
 module.exports = mongoose.model("Attendance", attendanceSchema);
