@@ -39,12 +39,8 @@ exports.login = async (req, res) => {
 
     const teacher = await Teacher.findOne({ teacherId });
 
-    if (!teacher) {
-      return res.status(404).json({ message: "Teacher not found" });
-    }
-
-    if (teacher.password !== password) {
-      return res.status(401).json({ message: "Invalid password" });
+    if (!teacher || teacher.password !== password) {
+      return res.status(401).json({ message: "Invalid teacher ID or password" });
     }
 
     res.json({
