@@ -38,7 +38,10 @@ const attendanceSchema = new mongoose.Schema({
     validate: {
       validator: (value) => {
         const [year, month, day] = value.split("-").map(Number);
-        const parsedDate = new Date(Date.UTC(year, month - 1, day));
+        // Date.UTC remaps years 0–99 to 1900–1999; set the full year explicitly.
+        const parsedDate = new Date(0);
+        parsedDate.setUTCHours(0, 0, 0, 0);
+        parsedDate.setUTCFullYear(year, month - 1, day);
 
         return (
           parsedDate.getUTCFullYear() === year &&
