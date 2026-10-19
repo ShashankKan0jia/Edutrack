@@ -32,6 +32,6 @@ const teacherSchema = new mongoose.Schema({
     trim: true,
     maxlength: 100,
   },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Teacher", teacherSchema);
