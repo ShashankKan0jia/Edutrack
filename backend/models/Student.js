@@ -26,6 +26,6 @@ const studentSchema = new mongoose.Schema({
     trim: true,
     maxlength: 200,
   },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Student", studentSchema);
