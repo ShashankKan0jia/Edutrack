@@ -58,7 +58,7 @@ const attendanceSchema = new mongoose.Schema({
     required: true,
     default: "Present",
   },
-});
+}, { timestamps: true });
 
 // Prevent duplicate teacher attendance records for the same day.
 attendanceSchema.index(
