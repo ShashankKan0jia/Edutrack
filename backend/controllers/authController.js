@@ -53,7 +53,7 @@ exports.login = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("Login error:");
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -113,7 +113,7 @@ exports.addTeacher = async (req, res) => {
     if (error.code === 11000) {
       return res.status(409).json({ message: "Teacher already exists" });
     }
-    console.error("Add teacher error:", error);
+    console.error("Add teacher error:");
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -164,7 +164,7 @@ exports.addStudent = async (req, res) => {
     if (error.code === 11000) {
       return res.status(409).json({ message: "Student already exists" });
     }
-    console.error("Add student error:", error);
+    console.error("Add student error:");
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -221,7 +221,7 @@ exports.markTeacherAttendance = async (req, res) => {
     if (error.code === 11000) {
       return res.status(409).json({ message: "Attendance already marked" });
     }
-    console.error("Mark teacher attendance error:", error);
+    console.error("Mark teacher attendance error:");
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -251,7 +251,7 @@ exports.getStudentsByClassAndSchool = async (req, res) => {
 
     res.json(students);
   } catch (error) {
-    console.error("Get students error:", error);
+    console.error("Get students error:");
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -368,7 +368,7 @@ exports.markStudentAttendanceBulk = async (req, res) => {
     if (error.code === 11000) {
       return res.status(409).json({ message: "Attendance already exists for one or more students" });
     }
-    console.error("Bulk student attendance error:", error);
+    console.error("Bulk student attendance error:");
     res.status(500).json({ message: "Internal server error" });
   }
 };
