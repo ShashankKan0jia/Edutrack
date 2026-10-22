@@ -10,8 +10,9 @@ const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB Connected Successfully");
-  } catch (error) {
-    console.error("MongoDB connection failed:", error.message);
+  } catch {
+    // Connection errors can include infrastructure details; keep logs generic.
+    console.error("MongoDB connection failed. Check MONGO_URI and database availability.");
     process.exit(1);
   }
 };
