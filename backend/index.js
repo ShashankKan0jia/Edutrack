@@ -6,6 +6,7 @@ const cors = require("cors");
 
 dotenv.config();
 const app = express();
+app.disable("x-powered-by");
 
 // VERY IMPORTANT
 app.use(cors());
