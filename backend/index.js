@@ -12,13 +12,6 @@ app.disable("x-powered-by");
 app.use(cors());
 app.use(express.json({ limit: "1mb" })); // Limit JSON payload size
 
-// Keep malformed JSON requests on the API contract instead of returning HTML.
-app.use((err, _req, res, next) => {
-  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
-    return res.status(400).json({ message: "Invalid JSON request body" });
-  }
-  next(err);
-});
 
 // API responses can contain student and attendance data; do not cache them.
 app.use("/api", (_req, res, next) => {
@@ -29,6 +22,14 @@ app.use("/api", (_req, res, next) => {
 app.use("/api", authRoutes);
 app.use("/api", (_req, res) => {
   res.status(404).json({ message: "API route not found" });
+});
+
+// Keep malformed JSON requests on the API contract instead of returning HTML.
+app.use((err, _req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+    return res.status(400).json({ message: "Invalid JSON request body" });
+  }
+  next(err);
 });
 
 const PORT = process.env.PORT || 5000;
