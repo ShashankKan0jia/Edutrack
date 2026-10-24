@@ -27,6 +27,9 @@ app.use("/api", (_req, res, next) => {
 });
 
 app.use("/api", authRoutes);
+app.use("/api", (_req, res) => {
+  res.status(404).json({ message: "API route not found" });
+});
 
 const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
