@@ -10,14 +10,14 @@ app.disable("x-powered-by");
 
 // VERY IMPORTANT
 app.use(cors());
-app.use(express.json({ limit: "1mb" })); // Limit JSON payload size
-
-
+// Apply API cache policy before parsing so error responses receive it too.
 // API responses can contain student and attendance data; do not cache them.
 app.use("/api", (_req, res, next) => {
   res.set("Cache-Control", "no-store");
   next();
 });
+
+app.use(express.json({ limit: "1mb" })); // Limit JSON payload size
 
 app.use("/api", authRoutes);
 app.use("/api", (_req, res) => {
