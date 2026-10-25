@@ -24,10 +24,13 @@ app.use("/api", (_req, res) => {
   res.status(404).json({ message: "API route not found" });
 });
 
-// Keep malformed JSON requests on the API contract instead of returning HTML.
+// Keep malformed JSON and oversized payloads on a predictable JSON API contract.
 app.use((err, _req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
     return res.status(400).json({ message: "Invalid JSON request body" });
+  }
+  if (err && err.status === 413) {
+    return res.status(413).json({ message: "Request body is too large" });
   }
   next(err);
 });
