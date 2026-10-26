@@ -41,3 +41,21 @@ connectDB().then(() => {
     console.log(`Server running on port ${PORT}`);
   });
 });
+
+// Keep unexpected API failures on the same JSON response contract.
+app.use((err, _req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  const status = Number.isInteger(err?.status) && err.status >= 400 && err.status < 600
+    ? err.status
+    : 500;
+
+  if (status >= 500) {
+    console.error("Unhandled API error:");
+    return res.status(status).json({ message: "Internal server error" });
+  }
+
+  return res.status(status).json({ message: "Request could not be processed" });
+});
