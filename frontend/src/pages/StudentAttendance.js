@@ -14,9 +14,12 @@ function StudentAttendance() {
 
   const fetchStudents = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/students?className=${teacher.class}&school=${teacher.school}`,
-      );
+      const res = await axios.get("http://localhost:5000/api/students", {
+        params: {
+          className: teacher.class,
+          school: teacher.school,
+        },
+      });
 
       // default status = Present
       const formatted = res.data.map((s) => ({
