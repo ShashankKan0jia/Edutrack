@@ -9,7 +9,7 @@ A full-stack attendance management application with separate frontend and backen
 
 ## Local development
 
-Requirements: Node.js compatible with the dependencies and a MongoDB database.
+Requirements: Node.js 20.19.0 or newer (required by Mongoose 9) and a MongoDB database.
 
 1. Configure the backend database connection. Create `backend/.env` with:
    ```dotenv
